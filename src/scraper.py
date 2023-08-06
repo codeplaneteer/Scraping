@@ -37,8 +37,9 @@ class Scraper:
                     soup = BeautifulSoup(res.content, 'lxml')
                     soup_lxml = etree.HTML(str(soup))
                     element = soup_lxml.xpath(page.element)[0].text
-                case other:
+                case _:
                     raise Exception(f'filter_type invalido ({page.filter_type}) en archivo csv')
             return element
         except Exception as e:
+            print('Error: ', e)
             return None

@@ -2,7 +2,7 @@ class Page:
     def __init__(self, **kwargs):
         self.__name = kwargs.get('name')
         self.__url = kwargs.get('url')
-        self.__filter_type = kwargs.get('filter_type') # xpath | selector
+        self.__filter_type = kwargs.get('filter_type')
         self.__element = kwargs.get('element')
         self.__description = kwargs.get('description')
 

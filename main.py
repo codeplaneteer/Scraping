@@ -8,8 +8,9 @@ from datetime import datetime
 from src.page import Page
 from src.scraper import Scraper
 
-def print_page_info(scraper:object, page: object):
-    msg = f'='*28
+
+def print_page_info(scraper: object, page: object):
+    msg = '='*28
     msg += '\n[name]\n'
     msg += f'{page.name}\n\n'
     msg += '[url]\n'
@@ -22,8 +23,9 @@ def print_page_info(scraper:object, page: object):
     msg += f'{page.description}\n\n'
     msg += '[message]\n'
     msg += f'{scraper.get_element_text(page)}\n'
-    msg += f'='*28
+    msg += '='*28
     print(msg)
+
 
 def main(argv):
     """

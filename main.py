@@ -8,6 +8,23 @@ from datetime import datetime
 from src.page import Page
 from src.scraper import Scraper
 
+def print_page_info(scraper:object, page: object):
+    msg = f'='*28
+    msg += '\n[name]\n'
+    msg += f'{page.name}\n\n'
+    msg += '[url]\n'
+    msg += f'{page.url}\n\n'
+    msg += '[filter_type]\n'
+    msg += f'{page.filter_type}\n\n'
+    msg += '[element]\n'
+    msg += f'{page.element}\n\n'
+    msg += '[description]\n'
+    msg += f'{page.description}\n\n'
+    msg += '[message]\n'
+    msg += f'{scraper.get_element_text(page)}\n'
+    msg += f'='*28
+    print(msg)
+
 def main(argv):
     """
     Ejecutar de la forma:
@@ -39,8 +56,7 @@ def main(argv):
         scraper.pages = page
 
     for page in scraper.pages:
-        text = scraper.get_element_text(page)
-        print(text)
+        print_page_info(scraper, page)
 
     stop = datetime.now()
     print(f'\nTiempo => {stop - start}')

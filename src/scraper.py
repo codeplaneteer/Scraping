@@ -27,13 +27,18 @@ class Scraper:
         self.__pages.remove(page)
 
     def get_element_text(self, page: object):
-        res = requests.get(page.url)
-        match page.filter_type:
-            case "selector":
-                soup = BeautifulSoup(res.content, 'html.parser')
-                element = soup.select(page.element)[0].text
-            case "xpath":
-                soup = BeautifulSoup(res.content, 'lxml')
-                soup_lxml = etree.HTML(str(soup))
-                element = soup_lxml.xpath(page.element)[0].text
-        return element
+        try:
+            res = requests.get(page.url)
+            match page.filter_type:
+                case 'selector':
+                    soup = BeautifulSoup(res.content, 'html.parser')
+                    element = soup.select(page.element)[0].text
+                case 'xpath':
+                    soup = BeautifulSoup(res.content, 'lxml')
+                    soup_lxml = etree.HTML(str(soup))
+                    element = soup_lxml.xpath(page.element)[0].text
+                case other:
+                    raise Exception(f'filter_type invalido ({page.filter_type}) en archivo csv')
+            return element
+        except Exception as e:
+            return None

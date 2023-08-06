@@ -1,0 +1,3 @@
+name|url|filter_type|element|description
+Portal Apicola|https://api-portal.com.ar/|selector|#block-9 > p|Precio de Mieles Oscuras en el Portal Apicola
+Portal Apicola|https://api-portal.com.ar/|xpath|//*[@id="block-10"]/p|Precio de Mieles Claras en el Portal Apicola

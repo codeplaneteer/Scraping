@@ -2,11 +2,14 @@
 # -*- coding: utf-8 -*-
 
 import os
+import schedule
 import sys
+import time
 import pandas as pd
 from datetime import datetime
 from src.page import Page
 from src.scraper import Scraper
+from src.telegram import Telegram
 
 
 def print_page_info(scraper: object, page: object):
@@ -57,12 +60,17 @@ def main(argv):
         )
         scraper.pages = page
 
-    for page in scraper.pages:
-        print_page_info(scraper, page)
+    # for page in scraper.pages:
+    #     print_page_info(scraper, page)
+
+    telegram = Telegram()
+    # telegram.send_message()
 
     stop = datetime.now()
     print(f'\nTiempo => {stop - start}')
 
-
 if __name__ == '__main__':
-    main(sys.argv[1:])
+    FILENAME = 'pages.csv'
+    # main(sys.argv[1:])
+    # schedule.every().day.at('06:00').do(main(FILENAME))
+    main([FILENAME])

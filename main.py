@@ -43,8 +43,8 @@ def main(argv):
         name, extension = os.path.splitext(filename)
 
         if os.path.exists(path) and extension in ('.csv'):
-            msg = f'Procesando archivo {name}'
-            print(f'{"*" * len(msg)}\n{msg}\n{"*" * len(msg)}')
+            # msg = f'Procesando archivo {name}'
+            # print(f'{"*" * len(msg)}\n{msg}\n{"*" * len(msg)}')
             df_pages = pd.read_csv(f"./{path}", sep='|')
         else:
             raise Exception('No encontrado o Extension incorrecta')
@@ -60,11 +60,18 @@ def main(argv):
         )
         scraper.pages = page
 
-    # for page in scraper.pages:
-    #     print_page_info(scraper, page)
-
     telegram = Telegram()
-    # telegram.send_message()
+
+    msg = ''
+    for page in scraper.pages:
+        # print_page_info(scraper, page)
+        size = len(page.description)
+        msg += '=' * size
+        msg += f'\n{page.name}'
+        msg += f'\n{page.description}'
+        msg += f'\n{scraper.get_element_text(page)}\n'
+
+    telegram.send_message(msg)
 
     stop = datetime.now()
     print(f'\nTiempo => {stop - start}')
@@ -72,5 +79,5 @@ def main(argv):
 if __name__ == '__main__':
     FILENAME = 'pages.csv'
     # main(sys.argv[1:])
-    # schedule.every().day.at('06:00').do(main(FILENAME))
-    main([FILENAME])
+    # main([FILENAME])
+    schedule.every().day.at('06:00').do(main([FILENAME]))
